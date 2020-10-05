@@ -1,0 +1,22 @@
+server:
+  port: 7443
+  ssl:
+    enabled: true
+    key-store: classpath:restapp.p12
+    key-store-type: JKS
+    key-store-password: changeit
+    key-alias: restapp
+
+management:
+  security:
+    enabled: false
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  jmx:
+    enabled: true

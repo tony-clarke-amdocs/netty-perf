@@ -1,0 +1,47 @@
+server:
+  port: 9443
+  ssl:
+    enabled: true
+    key-store: classpath:server.p12
+    key-store-type: JKS
+    key-store-password: changeit
+    key-alias: gateway
+
+management:
+  security:
+    enabled: false
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  jmx:
+    enabled: false
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      httpclient:
+        ssl:
+#          useInsecureTrustManager: true
+          trustedX509Certificates:
+            - classpath:rootCA.crt
+      routes:
+      - id: post
+        uri: https://localhost:7443/post
+        predicates:
+          - Method=POST
+          - Path=/post
+      - id: get
+        uri: https://localhost:7443/greeting
+        predicates:
+          - Method=GET
+          - Path=/greeting
+
+logging:
+  level:
+    io.netty.handler.ssl.OpenSsl: DEBUG
