@@ -10,28 +10,26 @@ All components are running on the same host.
 - Netty 4.1.49
 - Spring Cloud Gateway 2.2.3.
 
-### Results
+### Test Configuration
 The test calls a microservice via a gateway.
 
 __Summary__
 
-Upgrading from io.projectreactor.netty 0.9.7 to 0.9.10 results in timeouts during NFT tests.
-The details of the test are as follows:
+In order to trigger the failure scenario the test may need to be adjusted for the hardware it runs on. The 
+out of box configuration can trigger the failure on MacBook Pro 2.8 GHz i7. The test configuration options are:
 
 - 20 minute duration
-- 100 users/clients
+- 140 users/clients
 - Ramp 5 users/sec
-- Pace is 300 ms
-- Request timeout is 2200 ms
+- Pace is 100 ms
+- Request timeout is 1500 ms
 
-Running the test with io.projectreactor.netty 0.9.1 results in timeouts in 8 out of 
-10 runs. Running the test with io.projectreactor.netty 0.9.7 results in no timeouts 
-in 10 out of 10 runs.
+Out of box the test runs with reactor netty 0.9.7 and the test is expected to pass.
 
 ### How To Run
-To run with io.projectreactor.netty 0.9.10, from the root directory ./test.sh  
+To run with io.projectreactor.netty 0.9.7, from the root directory ./test.sh  
 
-To run with io.projectreactor.netty 0.9.7, edit gateway/pom.xml and change the version of 
+To run with io.projectreactor.netty 0.9.10, edit gateway/pom.xml and change the version of 
 io.projectreactor.netty to 0.9.7, then from the root directory ./test.sh.
 
 The results can be found in gatling-test/target/gatling/

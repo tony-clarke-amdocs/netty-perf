@@ -20,7 +20,7 @@ class GatewaySimulation extends Simulation {
       .get("https://localhost:9443/greeting")
       .check(status.is(200)))
   }
-  val TestGatewayScenario = scenario("gateway").forever(pace(300 milliseconds).exec(TestGateway.call))
+  val TestGatewayScenario = scenario("gateway").forever(pace(100 milliseconds).exec(TestGateway.call))
 
   val nUsers = Integer.parseInt(System.getProperty("nusers"))
   val nRampUsersPerSecond = 5
